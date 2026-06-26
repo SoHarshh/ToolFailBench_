@@ -103,7 +103,7 @@ export JUDGE_GLM47_API_BASE=...                  # judge 2 endpoint
 ```bash
 # Closed-API model (no GPU)
 python scripts/run_eval.py --model grok-4.3
-# Open-weight model (requires a running vLLM server — see scripts/serve_model.sh)
+# Open-weight model (requires a running vLLM server — see scripts/serve_model.py)
 python scripts/run_eval.py --model qwen2.5-32b-instruct
 ```
 
@@ -160,7 +160,7 @@ The full per-model evaluation and judge traces from the paper (used to regenerat
 │
 └── scripts/
     ├── run_eval.py, run_judge.py   entry points
-    ├── serve_model.sh, preflight.py  serving + pre-run checks
+    ├── serve_model.py, preflight.py  serving + pre-run checks
     ├── analysis/                   confidence intervals, κ, ties, closed-book probe
     ├── figures.py                  paper figures
     └── domain_generation/          one-shot scripts that built tasks_v5/
