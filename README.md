@@ -84,7 +84,7 @@ cd ToolFailBench_
 source .venv/bin/activate
 ```
 
-> `vllm` (in `requirements.txt`) is only needed to **serve open-weight models locally**. If you only evaluate closed-API models, you can skip it — it requires a Linux/CUDA machine.
+> To **serve open-weight models locally**, install `vllm` separately (`pip install vllm`, Linux/CUDA only). It is kept out of `requirements.txt` so the core install works on any machine; closed-API evaluation does not need it.
 
 Provider API keys (for closed-API models and the two LLM judges) are read from the shell environment. Export whichever you need:
 
