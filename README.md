@@ -159,11 +159,9 @@ The full per-model evaluation and judge traces from the paper (used to regenerat
 ├── modal_apps/                     Modal serving definitions (the two judges + open-weight serving)
 │
 └── scripts/
-    ├── run_eval.py, run_judge.py   entry points
+    ├── run_eval.py, run_judge.py     entry points
     ├── serve_model.py, preflight.py  serving + pre-run checks
-    ├── analysis/                   confidence intervals, κ, ties, closed-book probe
-    ├── figures.py                  paper figures
-    └── domain_generation/          one-shot scripts that built tasks_v5/
+    └── run_eval.sh, run_judge.sh     serve→preflight→eval and judge→aggregate orchestration
 ```
 
 ---
