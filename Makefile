@@ -1,12 +1,4 @@
-# ToolFailBench v5 — canonical workflow.
-#
-# Common knobs (override on the command line):
-#   make eval MODEL=qwen3.5-9b TP=1 PORT=8000
-#   make eval-detached MODEL=grok-4.3
-#   make judge EVAL=results/v5/qwen3.5-9b_20260505_134057.json
-#   make serve MODEL=glm4.7 PORT=8000
-#
-# Variables resolved per-target via $(MODEL), $(EVAL), etc.
+# ToolFailBench workflows. Run `make help` for the available targets.
 
 MODEL ?=
 TP    ?= 1
@@ -24,7 +16,7 @@ setup: ## Bootstrap venv + dependencies
 
 serve: ## Serve a model via vLLM (MODEL=<id> [PORT=8000])
 	@test -n "$(MODEL)" || (echo "ERROR: set MODEL=<id>" >&2; exit 1)
-	VLLM_PORT=$(PORT) ./scripts/serve_model.sh $(MODEL)
+	VLLM_PORT=$(PORT) python scripts/serve_model.py $(MODEL)
 
 preflight: ## Tool-call round-trip check (MODEL=<id>)
 	@test -n "$(MODEL)" || (echo "ERROR: set MODEL=<id>" >&2; exit 1)
