@@ -1,0 +1,26 @@
+# Judge 1 — Qwen3.5-397B-A17B-FP8 (decision-tree framing).
+# Drives scripts/run_judge.py: which model name to call, which endpoint env
+# var to read, sampling, and which prompt overlay to use.
+#
+# Serving config (image, GPU spec, vllm flags) is hardcoded in
+# modal_apps/judge_1_qwen35.py — that's the single source of truth.
+
+judge_name: qwen35_397b
+
+model:
+  hf_id: Qwen/Qwen3.5-397B-A17B-FP8
+  served_name: qwen3.5-397b
+
+endpoint:
+  api_base_env: JUDGE_QWEN35_API_BASE
+  api_key_env: JUDGE_QWEN35_API_KEY
+
+inference:
+  temperature: 0.0
+  max_tokens: 512
+  num_retries: 10
+  timeout: 120
+
+prompt:
+  base_rubric: base_rubric.md
+  variant: variant_a_decision_tree.md

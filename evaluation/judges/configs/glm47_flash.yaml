@@ -1,0 +1,26 @@
+# Pre-validation smoke-test judge — GLM-4.7-Flash, single-B200, same prompt
+# as glm47_fp8. Use this to sanity-check the rubric before scheduling the
+# full FP8 dual-judge run.
+
+judge_name: glm47_flash
+
+model:
+  hf_id: zai-org/GLM-4.7-Flash
+  served_name: glm-4.7-flash
+
+endpoint:
+  api_base_env: JUDGE_GLM47_API_BASE
+  api_key_env: JUDGE_GLM47_API_KEY
+
+inference:
+  temperature: 0.0
+  max_tokens: 512
+  num_retries: 10
+  timeout: 120
+  extra_body:
+    chat_template_kwargs:
+      enable_thinking: false
+
+prompt:
+  base_rubric: base_rubric.md
+  variant: variant_b_evidence.md
