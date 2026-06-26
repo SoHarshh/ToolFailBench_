@@ -1,15 +1,4 @@
-"""
-Main evaluation runner for ToolFailBench.
-
-Loads the v5 tasks, runs one or more registry models through the two-call
-tool-use exchange (call → inject mock tool return → final answer), classifies
-each result with the rule classifier, and writes per-model JSON to results/v5/.
-
-Usage:
-  python scripts/run_eval.py --model qwen2.5-32b-instruct
-  python scripts/run_eval.py --model grok-4.3 --domains finance legal
-  python scripts/run_eval.py --tier 1 2
-"""
+"""Run ToolFailBench models through the two-call tool-use exchange and write per-model result JSONs to results/v5/."""
 import argparse
 import json
 import os
