@@ -1,0 +1,13 @@
+vllm
+litellm
+openai
+anthropic
+requests
+pyyaml
+python-dotenv
+numpy
+matplotlib
+tqdm
+fastapi
+uvicorn
+modal
