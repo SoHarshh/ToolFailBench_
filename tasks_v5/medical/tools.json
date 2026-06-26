@@ -1,0 +1,147 @@
+{
+  "domain": "medical",
+  "version": "1.0",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_drug_info",
+        "description": "Returns reference information for a single medication: brand names, drug class, indications, mechanism of action, common side effects, contraindications, and pregnancy category.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "drug_name": {
+              "type": "string",
+              "description": "Generic or brand drug name (e.g., 'metformin', 'Lipitor', 'lisinopril')."
+            }
+          },
+          "required": ["drug_name"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_drug_dosing",
+        "description": "Returns recommended dosing for a drug given indication and patient parameters. Includes route, frequency, max daily, and renal/hepatic adjustment notes when applicable.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "drug_name": {"type": "string", "description": "Generic drug name."},
+            "indication": {"type": "string", "description": "Clinical indication (e.g., 'type 2 diabetes', 'hypertension', 'community-acquired pneumonia')."},
+            "patient_age_yrs": {"type": "integer", "description": "Patient age in years."},
+            "weight_kg": {"type": "number", "description": "Patient weight in kilograms."},
+            "renal_function_egfr": {"type": "number", "description": "Estimated glomerular filtration rate in mL/min/1.73m^2. Use 60 or higher to indicate normal renal function."}
+          },
+          "required": ["drug_name", "indication", "patient_age_yrs", "weight_kg", "renal_function_egfr"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_drug_interactions",
+        "description": "Returns the interaction profile between two drugs: severity classification, pharmacological mechanism, clinical recommendation, and evidence level.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "drug_a": {"type": "string", "description": "First drug, generic name."},
+            "drug_b": {"type": "string", "description": "Second drug, generic name."}
+          },
+          "required": ["drug_a", "drug_b"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_lab_reference_range",
+        "description": "Returns the laboratory reference range (low, high, units) for a given test, with age and sex modifiers when relevant.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "test_name": {"type": "string", "description": "Lab test name (e.g., 'HbA1c', 'eGFR', 'troponin I', 'INR')."},
+            "patient_age_yrs": {"type": "integer", "description": "Patient age in years."},
+            "patient_sex": {"type": "string", "enum": ["male", "female"], "description": "Patient biological sex."}
+          },
+          "required": ["test_name", "patient_age_yrs", "patient_sex"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_lab_result",
+        "description": "Returns a specific lab result for a patient (synthetic mock IDs only, never real PHI). Includes value, units, reference range, abnormal flag, and draw timestamp.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "patient_id": {"type": "string", "description": "Synthetic patient identifier (e.g., 'PT-12345')."},
+            "test_name": {"type": "string", "description": "Lab test name."}
+          },
+          "required": ["patient_id", "test_name"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_vital_signs_reference",
+        "description": "Returns the normal range for a vital-sign parameter, accounting for age category (especially important for pediatric vitals which differ sharply by age).",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "parameter": {"type": "string", "enum": ["heart_rate", "respiratory_rate", "systolic_bp", "diastolic_bp", "temperature_c", "spo2_pct"], "description": "Vital sign parameter."},
+            "patient_age_yrs": {"type": "integer", "description": "Patient age in years (use 0 for neonates)."}
+          },
+          "required": ["parameter", "patient_age_yrs"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_icd_code",
+        "description": "Look up an ICD-10-CM code. Use lookup_type='by_code' to retrieve the description for a known code; use 'by_description' to find the code matching a clinical description.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {"type": "string", "description": "ICD-10-CM code (e.g., 'E11.9') or clinical description (e.g., 'type 2 diabetes mellitus without complications')."},
+            "lookup_type": {"type": "string", "enum": ["by_code", "by_description"], "description": "Direction of the lookup."}
+          },
+          "required": ["query", "lookup_type"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_clinical_guideline",
+        "description": "Returns the most recent published guideline summary for a given condition from a specified professional organization.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "condition": {"type": "string", "description": "Clinical condition (e.g., 'hypertension', 'type 2 diabetes', 'sepsis', 'STEMI')."},
+            "organization": {"type": "string", "enum": ["AHA", "ADA", "USPSTF", "IDSA", "ACC", "AAP", "ATS", "ACS"], "description": "Issuing organization. AHA=American Heart Association, ADA=American Diabetes Association, USPSTF=US Preventive Services Task Force, IDSA=Infectious Diseases Society of America, ACC=American College of Cardiology, AAP=American Academy of Pediatrics, ATS=American Thoracic Society, ACS=American Cancer Society."}
+          },
+          "required": ["condition", "organization"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_medical_literature",
+        "description": "Searches the medical literature index (PubMed-style) and returns matching papers with PMID, title, journal, year, authors, and abstract snippet.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {"type": "string", "description": "Search query — keywords, study name, drug, condition, or specific PMID."},
+            "max_results": {"type": "integer", "description": "Maximum number of results to return."}
+          },
+          "required": ["query", "max_results"]
+        }
+      }
+    }
+  ]
+}

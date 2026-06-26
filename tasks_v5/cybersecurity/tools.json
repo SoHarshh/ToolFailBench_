@@ -1,0 +1,182 @@
+{
+  "domain": "cybersecurity",
+  "version": "1.0",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_cve",
+        "description": "Returns details for a CVE: CVSS v3 score, severity, KEV catalog status, exploitation status, affected products, description, publish/last-modified dates. Use this whenever the user references a specific CVE identifier.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "cve_id": {
+              "type": "string",
+              "description": "CVE identifier in standard format, e.g., 'CVE-2021-44228'."
+            }
+          },
+          "required": ["cve_id"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "check_ioc_reputation",
+        "description": "Returns the current reputation/classification for an indicator of compromise (IP, domain, URL, or file hash) along with associated threat-actor attribution, first/last seen, and source feeds.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "indicator": {
+              "type": "string",
+              "description": "The indicator string itself (IP address, domain, URL, or file hash)."
+            },
+            "indicator_type": {
+              "type": "string",
+              "enum": ["ip", "domain", "url", "file_hash"],
+              "description": "Type of indicator."
+            }
+          },
+          "required": ["indicator", "indicator_type"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_mitre_attack",
+        "description": "Returns details for a MITRE ATT&CK technique or sub-technique: name, tactic, description, sub-techniques, current detection guidance, mitigations, and threat actors known to use it.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "technique_id": {
+              "type": "string",
+              "description": "MITRE ATT&CK technique or sub-technique ID, e.g., 'T1003' or 'T1003.001'."
+            }
+          },
+          "required": ["technique_id"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "query_threat_intel",
+        "description": "Returns the current dossier for a threat actor or group: known aliases, attribution assessment, primary targets, CURRENT TTPs, recent campaigns, current activity status. Note: TTPs evolve over time — always treat tool return as current.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "actor_name": {
+              "type": "string",
+              "description": "Threat actor or group name. Common names or aliases (e.g., 'APT29', 'Cozy Bear', 'Lazarus Group', 'FIN7')."
+            }
+          },
+          "required": ["actor_name"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_compliance_control",
+        "description": "Returns the current text of a compliance / control-framework requirement, with framework version, control title, description, requirement specifics, and control family.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "framework": {
+              "type": "string",
+              "enum": ["NIST_CSF", "PCI_DSS", "ISO_27001", "HIPAA_Security", "FedRAMP", "SOC2"],
+              "description": "Compliance framework."
+            },
+            "control_id": {
+              "type": "string",
+              "description": "Control identifier within the framework, e.g., 'GV.OC' for NIST CSF 2.0 Govern-Organizational Context, '8.3' for PCI-DSS 4.0 multi-factor authentication."
+            }
+          },
+          "required": ["framework", "control_id"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "query_security_log",
+        "description": "Searches the security event log (SIEM-style) for events matching a query within a time range. Returns a list of matching events with timestamp, source, event type, structured fields, and severity. Use synthetic time-range strings like '24h', '7d', '2026-05-01..2026-05-04'.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Search query — keywords, source-filter, event-type-filter, or structured query like 'src_ip=10.1.2.3'."
+            },
+            "time_range": {
+              "type": "string",
+              "description": "Time range, e.g., '24h', '7d', or ISO range '2026-05-01..2026-05-04'."
+            }
+          },
+          "required": ["query", "time_range"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_detection_rule",
+        "description": "Returns the rule text and metadata for a published detection rule. Supports Sigma, YARA, Snort, Suricata rule sets.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "rule_id": {
+              "type": "string",
+              "description": "Rule identifier or unique name."
+            },
+            "ruleset": {
+              "type": "string",
+              "enum": ["sigma", "yara", "snort", "suricata"],
+              "description": "Detection rule format."
+            }
+          },
+          "required": ["rule_id", "ruleset"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_vulnerability_advisory",
+        "description": "Returns the current text of a vendor security advisory: title, severity, affected products and versions, patch availability, publication and last-revised dates.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "advisory_id": {
+              "type": "string",
+              "description": "Vendor advisory ID, e.g., 'MS17-010', 'APSB23-01', 'cisco-sa-asa-ftd-rce-2025-X'."
+            },
+            "vendor": {
+              "type": "string",
+              "description": "Issuing vendor (e.g., 'Microsoft', 'Cisco', 'Adobe', 'Apple')."
+            }
+          },
+          "required": ["advisory_id", "vendor"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_cwe",
+        "description": "Returns details for a Common Weakness Enumeration (CWE) entry: name, description, common consequences, related-CVE count, and standard mitigations.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "cwe_id": {
+              "type": "string",
+              "description": "CWE identifier, e.g., 'CWE-79' (XSS), 'CWE-89' (SQL Injection), 'CWE-22' (Path Traversal)."
+            }
+          },
+          "required": ["cwe_id"]
+        }
+      }
+    }
+  ]
+}

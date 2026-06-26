@@ -1,0 +1,143 @@
+{
+  "domain": "legal",
+  "version": "1.0",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_case_law",
+        "description": "Look up a specific court opinion or search by keyword. Returns case name, citation, court, year, holding, key reasoning, and current legal status (good_law, overruled, questioned, or superseded).",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {"type": "string", "description": "Case name, citation (e.g., '410 U.S. 113'), or keyword search."},
+            "jurisdiction": {"type": "string", "description": "Jurisdiction filter, e.g., 'federal', 'US Supreme Court', 'CA', 'NY', '9th Circuit'."},
+            "lookup_type": {"type": "string", "enum": ["by_citation", "by_keyword"], "description": "Direction of lookup. 'by_citation' for known citation; 'by_keyword' for topical search."}
+          },
+          "required": ["query", "jurisdiction", "lookup_type"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_statute",
+        "description": "Returns the current text of a federal or state statute. Includes effective date, amendment history, and current status. Use for citations like '18 U.S.C. § 1001' or 'Cal. Civ. Code § 1542'.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "citation": {"type": "string", "description": "Statute citation (e.g., '18 U.S.C. § 1001', 'Cal. Civ. Code § 1542', '42 U.S.C. § 1983')."},
+            "jurisdiction": {"type": "string", "description": "Jurisdiction (e.g., 'federal', 'CA', 'NY', 'TX')."}
+          },
+          "required": ["citation", "jurisdiction"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_regulation",
+        "description": "Returns the current text of a federal or state regulation (CFR, state administrative code). Includes issuing agency, effective date, and last revision date.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "citation": {"type": "string", "description": "Regulation citation (e.g., '17 C.F.R. § 230.506', '29 C.F.R. § 1910.95')."},
+            "agency": {"type": "string", "description": "Issuing agency (e.g., 'SEC', 'OSHA', 'EPA', 'IRS', 'DOL')."}
+          },
+          "required": ["citation", "agency"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_court_rule",
+        "description": "Returns the current text of a court procedural rule (FRCP, FRE, FRCrP, or state equivalents). Includes effective date and last amendment date.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "rule_number": {"type": "string", "description": "Rule number (e.g., '26', '56', '12(b)(6)', '4(d)')."},
+            "jurisdiction": {"type": "string", "description": "Jurisdiction (e.g., 'federal', 'CA', 'NY')."},
+            "rule_set": {"type": "string", "enum": ["FRCP", "FRE", "FRCrP", "state_civil", "state_evidence", "state_criminal"], "description": "Which rule set. FRCP=Federal Rules of Civil Procedure; FRE=Federal Rules of Evidence; FRCrP=Federal Rules of Criminal Procedure."}
+          },
+          "required": ["rule_number", "jurisdiction", "rule_set"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_legal_definition",
+        "description": "Returns the legal definition of a term, with source attribution and any jurisdiction-specific notes.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "term": {"type": "string", "description": "Legal term (e.g., 'mens rea', 'res ipsa loquitur', 'consideration')."},
+            "jurisdiction": {"type": "string", "description": "Jurisdiction (e.g., 'common law', 'federal', 'CA')."}
+          },
+          "required": ["term", "jurisdiction"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_contract_clause",
+        "description": "Returns standard text and common variations for a contract clause type, with jurisdiction-specific drafting notes.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "clause_type": {"type": "string", "description": "Type of clause (e.g., 'force majeure', 'indemnification', 'limitation of liability', 'governing law', 'assignment')."},
+            "jurisdiction": {"type": "string", "description": "Governing-law jurisdiction (e.g., 'NY', 'DE', 'CA', 'federal')."}
+          },
+          "required": ["clause_type", "jurisdiction"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_legal_precedent",
+        "description": "Returns a list of controlling and persuasive precedents on a legal topic in a given jurisdiction. Each entry includes case name, citation, court, controlling-in jurisdiction, holding summary, and current status.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "topic": {"type": "string", "description": "Legal topic or doctrine (e.g., 'qualified immunity', 'Article III standing', 'Chevron deference', 'employment at-will exceptions')."},
+            "jurisdiction": {"type": "string", "description": "Target jurisdiction (e.g., 'federal', '9th Circuit', 'CA')."}
+          },
+          "required": ["topic", "jurisdiction"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_secondary_authority",
+        "description": "Returns a citation and summary from secondary legal sources: treatises (Wright & Miller, Corbin), Restatements, ALR annotations, or law review articles.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {"type": "string", "description": "Topic or specific source query."},
+            "source_type": {"type": "string", "enum": ["treatise", "restatement", "ALR", "law_review"], "description": "Type of secondary authority."}
+          },
+          "required": ["query", "source_type"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_court_filing",
+        "description": "Returns the docket / list of filings for a specific case in a specific court. Each entry includes filing type, filed date, party, and brief description.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "case_number": {"type": "string", "description": "Court-assigned case number (e.g., '1:23-cv-04218')."},
+            "court": {"type": "string", "description": "Court name (e.g., 'S.D.N.Y.', 'D.D.C.', 'Cal. Super. Ct., Los Angeles County')."}
+          },
+          "required": ["case_number", "court"]
+        }
+      }
+    }
+  ]
+}

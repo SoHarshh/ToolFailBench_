@@ -1,0 +1,190 @@
+{
+  "domain": "finance",
+  "version": "1.0",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_quote",
+        "description": "Returns the current snapshot for a single equity: price, day change, volume, market cap, and trailing-twelve-month P/E ratio.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "ticker": {
+              "type": "string",
+              "description": "Equity ticker symbol (e.g., 'AAPL', 'NVDA', 'BRK.A')."
+            }
+          },
+          "required": ["ticker"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_fundamentals",
+        "description": "Returns financial-statement data for a ticker's most recent reporting period. Use 'income' for income-statement items (revenue, EPS, net income), 'balance' for balance-sheet items (assets, liabilities, debt), 'ratios' for computed ratios (margins, ROE, ROA, debt-to-equity, current ratio).",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "ticker": {
+              "type": "string",
+              "description": "Equity ticker symbol."
+            },
+            "statement": {
+              "type": "string",
+              "enum": ["income", "balance", "ratios"],
+              "description": "Which financial-statement section to return."
+            }
+          },
+          "required": ["ticker", "statement"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_historical_prices",
+        "description": "Returns daily OHLCV bars for a ticker over a specified date range.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "ticker": {
+              "type": "string",
+              "description": "Equity ticker symbol."
+            },
+            "start_date": {
+              "type": "string",
+              "description": "Start date inclusive, ISO format YYYY-MM-DD."
+            },
+            "end_date": {
+              "type": "string",
+              "description": "End date inclusive, ISO format YYYY-MM-DD."
+            }
+          },
+          "required": ["ticker", "start_date", "end_date"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_filings",
+        "description": "Returns recent SEC filings of a specified type for a ticker, most recent first. Each filing entry includes filing type, filed date, fiscal period, key items summary, and source URL.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "ticker": {
+              "type": "string",
+              "description": "Equity ticker symbol."
+            },
+            "filing_type": {
+              "type": "string",
+              "enum": ["10-K", "10-Q", "8-K", "S-4", "Form4"],
+              "description": "SEC filing type. 10-K=annual, 10-Q=quarterly, 8-K=material event, S-4=M&A, Form4=insider transactions."
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Maximum number of filings to return."
+            }
+          },
+          "required": ["ticker", "filing_type", "limit"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_analyst_ratings",
+        "description": "Returns aggregated sell-side analyst opinions for a single ticker: distribution of buy/hold/sell ratings, consensus price target, and current average rating.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "ticker": {
+              "type": "string",
+              "description": "Equity ticker symbol."
+            }
+          },
+          "required": ["ticker"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_economic_data",
+        "description": "Returns the latest reading and prior reading for a US macroeconomic indicator.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "indicator": {
+              "type": "string",
+              "enum": ["cpi", "fed_rate", "unemployment", "gdp_growth", "treasury_10y", "treasury_2y"],
+              "description": "Indicator code. cpi=year-over-year CPI inflation, fed_rate=federal funds upper bound, unemployment=U-3 rate, gdp_growth=quarterly GDP annualized, treasury_10y/treasury_2y=on-the-run yields."
+            }
+          },
+          "required": ["indicator"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_fx_rate",
+        "description": "Returns the current spot exchange rate for a currency pair, with 1-day percent change.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "base_ccy": {
+              "type": "string",
+              "description": "Base currency, ISO 4217 (e.g., 'EUR', 'USD', 'JPY')."
+            },
+            "quote_ccy": {
+              "type": "string",
+              "description": "Quote currency, ISO 4217."
+            }
+          },
+          "required": ["base_ccy", "quote_ccy"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_options_chain",
+        "description": "Returns the full options chain (calls and puts) for a ticker at a specified expiration date. Each entry includes strike, type, bid, ask, implied volatility, open interest, and volume.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "ticker": {
+              "type": "string",
+              "description": "Underlying equity ticker symbol."
+            },
+            "expiry": {
+              "type": "string",
+              "description": "Expiration date, ISO format YYYY-MM-DD."
+            }
+          },
+          "required": ["ticker", "expiry"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_bond_data",
+        "description": "Returns the latest snapshot for a single bond: issuer, coupon, maturity, yield-to-maturity, spread to treasury, and credit rating.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "instrument_id": {
+              "type": "string",
+              "description": "Bond identifier. Accepts CUSIP, ticker-coupon-maturity string (e.g., 'AAPL 4.85 2033'), or treasury label ('UST 10Y', 'UST 2Y')."
+            }
+          },
+          "required": ["instrument_id"]
+        }
+      }
+    }
+  ]
+}

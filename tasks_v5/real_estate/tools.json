@@ -1,0 +1,140 @@
+{
+  "domain": "real_estate",
+  "version": "1.0",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_listing_details",
+        "description": "Returns current listing metadata for a property: list price, sqft, bedrooms, bathrooms, year built, listing status (active / pending / sold / off-market), listing date, days on market, MLS ID.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string",
+              "description": "Full property address (e.g., '123 Oak Street, Palo Alto, CA 94301')."
+            }
+          },
+          "required": ["address"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_comparable_sales",
+        "description": "Returns recent comparable sales (comps) within a radius and time window. Used for valuation, listing-pricing, and appraisal support.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "address": {"type": "string", "description": "Subject property address."},
+            "radius_mi": {"type": "number", "description": "Search radius in miles."},
+            "days_back": {"type": "integer", "description": "Look-back window in days for closed sales."}
+          },
+          "required": ["address", "radius_mi", "days_back"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_property_history",
+        "description": "Returns the chronological transaction and listing history of a property — sales, listings, refinances, with prices and parties where available.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "address": {"type": "string", "description": "Property address."}
+          },
+          "required": ["address"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_school_ratings",
+        "description": "Returns school ratings for the assigned attendance-zone schools at a property address: elementary, middle, high, plus the district name and the ratings source (e.g., GreatSchools).",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "address": {"type": "string", "description": "Property address."}
+          },
+          "required": ["address"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_mortgage_rate",
+        "description": "Returns current mortgage rates for a loan profile. Updated daily from market sources.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "loan_type": {"type": "string", "enum": ["conventional", "FHA", "VA", "USDA", "jumbo", "ARM_5_1", "ARM_7_1"], "description": "Loan product type."},
+            "term_years": {"type": "integer", "description": "Loan term in years (e.g., 30, 15)."},
+            "credit_band": {"type": "string", "enum": ["excellent_760+", "good_700_759", "fair_640_699", "below_640"], "description": "Borrower credit band (FICO)."}
+          },
+          "required": ["loan_type", "term_years", "credit_band"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_zoning_info",
+        "description": "Returns current zoning information for an address: zone code, zone name, height limit, max density, ADU allowance, SB-9-style lot-split eligibility (CA-specific), HOA governance flag.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "address": {"type": "string", "description": "Property address."}
+          },
+          "required": ["address"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_neighborhood_stats",
+        "description": "Returns aggregate market statistics for a neighborhood radius around an address: median sale price, median price-per-sqft, median days on market, active inventory count, year-over-year appreciation, recent quarter trend.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "address": {"type": "string", "description": "Center-point property address for the neighborhood definition."},
+            "radius_mi": {"type": "number", "description": "Radius in miles for neighborhood aggregation."}
+          },
+          "required": ["address", "radius_mi"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_property_tax",
+        "description": "Returns current property tax data: assessed value, effective tax rate, annual tax bill, assessment year, and any recent reassessment notes (e.g., transfer-triggered uplift, Prop-13-style cap notes).",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "address": {"type": "string", "description": "Property address."}
+          },
+          "required": ["address"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "get_rental_estimate",
+        "description": "Returns rental valuation: estimated monthly rent, count of rental comps used, ZIP-level vacancy rate, gross-yield estimate (rent / list-price ratio).",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "address": {"type": "string", "description": "Property address."}
+          },
+          "required": ["address"]
+        }
+      }
+    }
+  ]
+}
