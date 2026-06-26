@@ -1,0 +1,9 @@
+id: claude-haiku-4-5
+hf_model_id: null
+api_provider: anthropic
+family: anthropic
+size: unknown
+tier: 4
+category: closed
+inference_backend: api
+litellm_model_id: claude-haiku-4-5

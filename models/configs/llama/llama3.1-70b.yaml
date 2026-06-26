@@ -1,0 +1,10 @@
+id: llama3.1-70b
+hf_model_id: meta-llama/Llama-3.1-70B-Instruct
+family: llama
+size: 70B
+tier: 2
+category: base
+inference_backend: vllm
+recommended_gpu: 2xA100-80GB
+tool_call_parser: llama3_json
+chat_template: examples/tool_chat_template_llama3.1_json.jinja

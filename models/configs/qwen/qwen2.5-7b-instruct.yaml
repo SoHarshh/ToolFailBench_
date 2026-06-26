@@ -1,0 +1,9 @@
+id: qwen2.5-7b-instruct
+hf_model_id: Qwen/Qwen2.5-7B-Instruct
+family: qwen
+size: 7B
+tier: 1
+category: instruct
+inference_backend: vllm
+recommended_gpu: 1xA10G
+tool_call_parser: hermes

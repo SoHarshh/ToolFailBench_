@@ -1,0 +1,8 @@
+id: gpt-5.4-mini-2026-03-17
+hf_model_id: null
+api_provider: openai
+family: openai
+size: unknown
+tier: 4
+category: closed
+inference_backend: api

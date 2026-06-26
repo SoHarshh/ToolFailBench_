@@ -1,0 +1,10 @@
+id: qwen3.6-35b-a3b
+hf_model_id: Qwen/Qwen3.6-35B-A3B
+family: qwen
+size: 35B-MoE-3B-active
+tier: 2
+category: base
+inference_backend: vllm
+recommended_gpu: 1xH200-141GB
+no_think: true
+tool_call_parser: qwen3_coder

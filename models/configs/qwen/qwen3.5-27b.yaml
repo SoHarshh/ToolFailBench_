@@ -1,0 +1,10 @@
+id: qwen3.5-27b
+hf_model_id: Qwen/Qwen3.5-27B
+family: qwen
+size: 27B
+tier: 2
+category: base
+inference_backend: vllm
+recommended_gpu: 1xH100-80GB
+no_think: true
+tool_call_parser: qwen3_xml

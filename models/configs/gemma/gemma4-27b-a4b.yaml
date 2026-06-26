@@ -1,0 +1,10 @@
+id: gemma4-27b-a4b
+hf_model_id: google/gemma-4-26B-A4B-it
+family: gemma
+size: 26B-MoE-4B-active
+tier: 3
+category: reasoning
+inference_backend: vllm
+recommended_gpu: 1xH100-80GB
+tool_call_parser: gemma4
+chat_template: examples/tool_chat_template_gemma4.jinja

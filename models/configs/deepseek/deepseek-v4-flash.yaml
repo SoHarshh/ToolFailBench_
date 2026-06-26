@@ -1,0 +1,9 @@
+id: deepseek-v4-flash
+hf_model_id: null
+api_provider: deepseek
+family: deepseek
+size: 284B-MoE-13B-active
+tier: 4
+category: instruct
+inference_backend: api
+litellm_model_id: deepseek/deepseek-v4-flash

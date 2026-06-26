@@ -1,0 +1,9 @@
+id: glm4.7-flash
+hf_model_id: zai-org/GLM-4.7-Flash
+family: glm
+size: 30B-MoE-3B-active
+tier: 2
+category: base
+inference_backend: vllm
+recommended_gpu: 1xH200-141GB
+tool_call_parser: glm47

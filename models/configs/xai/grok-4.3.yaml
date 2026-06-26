@@ -1,0 +1,9 @@
+id: grok-4.3
+hf_model_id: null
+api_provider: xai
+family: xai
+size: unknown
+tier: 4
+category: closed
+inference_backend: api
+litellm_model_id: xai/grok-4.3

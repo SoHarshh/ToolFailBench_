@@ -1,0 +1,9 @@
+id: qwen2.5-72b-instruct
+hf_model_id: Qwen/Qwen2.5-72B-Instruct
+family: qwen
+size: 72B
+tier: 2
+category: instruct
+inference_backend: vllm
+recommended_gpu: 2xH100-80GB
+tool_call_parser: hermes

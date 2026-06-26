@@ -1,0 +1,9 @@
+id: deepseek-r1-distill-llama-8b
+hf_model_id: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+family: deepseek
+size: 8B
+tier: 3
+category: reasoning
+inference_backend: vllm
+recommended_gpu: 1xH100-80GB
+tool_call_parser: hermes
