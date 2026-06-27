@@ -98,6 +98,8 @@ export JUDGE_QWEN35_API_BASE=...                 # judge 1 endpoint
 export JUDGE_GLM47_API_BASE=...                  # judge 2 endpoint
 ```
 
+> **New here?** [`quickstart.ipynb`](quickstart.ipynb) runs the benchmark on one model end-to-end with no GPU — the fastest way to see the four failure modes.
+
 ### Run an eval
 
 ```bash
@@ -119,7 +121,13 @@ This runs both LLM judges (Qwen3.5-397B-A17B-FP8 + GLM-4.7-FP8) over the trace a
 
 ### Result traces
 
-The full per-model evaluation and judge traces from the paper (used to regenerate the leaderboard with `python evaluation/validate_results.py`) are released as a separate HuggingFace dataset — link added on release.
+The full per-model evaluation and judge traces are released as the HuggingFace dataset **[SoHarshh/toolfailbench-traces](https://huggingface.co/datasets/SoHarshh/toolfailbench-traces)**. To regenerate the leaderboard from them:
+
+```bash
+pip install huggingface_hub
+hf download SoHarshh/toolfailbench-traces --repo-type dataset --local-dir results/v5
+python evaluation/validate_results.py
+```
 
 ---
 
