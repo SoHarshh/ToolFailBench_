@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://openreview.net/forum?id=JhaxRN8QDV"><img alt="Paper (OpenReview)" src="https://img.shields.io/badge/OpenReview-Paper-8c1b13?logo=openreview&logoColor=white"></a>
-  <a href="https://github.com/SoHarshh/ToolFailBench_"><img alt="Code (GitHub)" src="https://img.shields.io/badge/GitHub-Code-181717?logo=github&logoColor=white"></a>
+  <a href="https://github.com/SoHarshh/ToolFailBench"><img alt="Code (GitHub)" src="https://img.shields.io/badge/GitHub-Code-181717?logo=github&logoColor=white"></a>
 </p>
 
 <h3 align="center"><a href="https://soharshh.com">Harsh Soni</a></h3>
@@ -78,8 +78,8 @@ Three additional runs are documented as non-headline in the paper (Appendix D): 
 ## Setup
 
 ```bash
-git clone https://github.com/SoHarshh/ToolFailBench_.git
-cd ToolFailBench_
+git clone https://github.com/SoHarshh/ToolFailBench.git
+cd ToolFailBench
 ./setup.sh
 source .venv/bin/activate
 ```
